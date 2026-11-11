@@ -26,13 +26,17 @@ They were written for [disflux](https://disfluxbbs.com) and play there.
 | `forge.py` | **Brakka's Forge.** Armor, the other way round: Brakka works on dragon scale, and the higher he is, the better the work, up to dragonforged plate (soaring, he may hide from dragons only he can see). |
 | `lantern.py` | **The Velvet Lantern.** Madam Rouge's house behind the Inn. Violet (Seth Able, for a woman) likes someone with a little experience, but not a regular: two visits a week help, a third gets the town talking, more and she hears about it. With LORD's clean mode on, it's a dance hall. |
 
-**Fairies** (`fairies.py`) tie them together: a jar each player carries.
-One comes up on a line at Willow Pond now and then; spent, she whispers
-a digit at the Hermit's Terminal, sniffs a virus off one of Dusty's
-floppies, steadies Rusk's wheel, coaxes Brakka's best work, or keeps a
-lookout at the Velvet Lantern. LORD's own fairy, from the forest, stays
-LORD's: modules can see it (Brakka works better with one about) but not
-take it.
+**Fairies** (`fairies.py`) tie them together. One comes up on a line at
+Willow Pond now and then: kept, she goes in the player's pocket as
+LORD's own fairy (on their stats, and saving them from death as a forest
+fairy does) or, if there's one there already, in a jar each player
+carries, which keeps from day to day (the pond tips one from the jar
+into an empty pocket). Spent from the jar, she whispers a digit at the
+Hermit's Terminal, sniffs a virus off one of Dusty's floppies, steadies
+Rusk's wheel, coaxes Brakka's best work, or keeps a lookout at the
+Velvet Lantern; Brakka works better with one in your pocket, too. LORD
+keeps its fairy only in memory, for the session, and reads it back from
+`INFO.<node>` when a module ends, so that's how a module gives one.
 
 Weapon edges and armor plating are strength and defense added for the
 day: they come off at the player's next visit on a later day, or with
@@ -96,7 +100,8 @@ the same in 3.x and 4.x; fields by their LORDSTRC.PAS names) and saves
 it on the way out, gives LORD back the time used, turns LORD's color
 codes into ANSI, reads keys (`key`, `ask`, `getkey`, `more`), writes to
 the Daily Happenings (`news`) and mail, and cleans what players type with
-LORD's BADWORDS.DAT. A caller who hangs up ends the module with the
+LORD's BADWORDS.DAT. `g.info["fairy"]` is LORD's fairy, and what it is
+when the module ends goes back to LORD. A caller who hangs up ends the module with the
 record saved. Copy an `install` from one of the modules for yours.
 
 Keep dark grey (`` `8 ``) for what may go unseen: some terminals draw it

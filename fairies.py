@@ -5,9 +5,12 @@ wherever a fairy can help: she whispers a digit at the Hermit's
 Terminal, sniffs a virus off one of Dusty's floppies, steadies Rusk's
 wheel, or charms Brakka into his best work.
 
-LORD's own fairy (the one from the forest, that saves its player from
-death) is LORD's to keep: modules can see it (`lord_fairy`) but not take
-it. Not a module itself: the others import it from their folder.
+LORD's own fairy (the one from the forest, in the player's pocket, that
+saves them from death) lives only in LORD's memory, for the session; it
+comes and goes through INFO. A module can see it (`lord_fairy`) and give
+one (`pocket`), and LORD shows her on the player's stats and uses her as
+its own. The jar's are the modules' and keep from day to day. Not a
+module itself: the others import it from their folder.
 """
 import json
 import os
@@ -78,6 +81,25 @@ def release(g):
 def lord_fairy(g):
     """LORD's own fairy is with the player (it says so in INFO)."""
     return bool(g.info.get("fairy"))
+
+
+def pocket(g):
+    """A fairy into the player's pocket, as LORD's own: her name, or None
+    if one's there already (LORD holds one)."""
+    if lord_fairy(g):
+        return None
+    g.info["fairy"] = True
+    return random.choice(NAMES)
+
+
+def to_pocket(g):
+    """The jar's first fairy into the empty pocket, as LORD's: her name,
+    or None."""
+    if lord_fairy(g) or not count(g):
+        return None
+    name = release(g)
+    g.info["fairy"] = True
+    return name
 
 
 def offer(g, why):

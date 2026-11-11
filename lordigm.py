@@ -173,6 +173,9 @@ class Igm:
         while len(lines) < 5:
             lines.append("")
         lines[4] = str(max(0, self.time_left - used))
+        # LORD reads INFO again on the way back, its fairy too.
+        if len(lines) > 3 and lines[3].strip().upper().startswith("FAIRY"):
+            lines[3] = "FAIRY YES" if self.info["fairy"] else "FAIRY NO"
         with open(self._info_name, "wb") as f:
             f.write("\r\n".join(lines).encode("cp437", "replace"))
 

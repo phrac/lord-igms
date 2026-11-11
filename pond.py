@@ -230,20 +230,27 @@ def cast(g, s):
 
 
 def fairy(g):
-    """A fairy in the line: into the jar (fairies.py), or let go."""
+    """A fairy in the line: into the pocket, as LORD's own fairy, or the
+    jar (fairies.py) if there's one in the pocket already; or let go."""
     import fairies
 
     g.say("  `2It's light, and it's swearing.  A `#fairy`2, tangled in your line,")
     g.say("  `2wings buzzing with fury.")
     g.say()
-    if fairies.count(g) >= fairies.JAR:
-        g.say(f"  `2Your jar's full ({fairies.JAR}).  You untangle her and she zips off,")
-        g.say("  `2kissing your nose on the way: `0+1 charm`2.")
+    room = not fairies.lord_fairy(g) or fairies.count(g) < fairies.JAR
+    if not room:
+        g.say(f"  `2Your pocket has a fairy and your jar's full ({fairies.JAR}).  You untangle")
+        g.say("  `2her and she zips off, kissing your nose on the way: `0+1 charm`2.")
         g.player.charm += 1
-    elif g.key("  `2(`0K`2)eep her in your jar, or (`0L`2)et her go? [`0K`2] : ", "KL", "K") == "K":
-        name = fairies.catch(g)
-        g.say(f"  `2You coax her into the jar.  She says her name is `#{name}`2, and that")
-        g.say("  `2you'll be sorry.  (Fairies help at the other places past town.)")
+    elif g.key("  `2(`0K`2)eep her, or (`0L`2)et her go? [`0K`2] : ", "KL", "K") == "K":
+        name = fairies.pocket(g)
+        if name:
+            g.say(f"  `2You tuck her in your pocket.  She says her name is `#{name}`2, and")
+            g.say("  `2that you'll be sorry.  (She's yours as any forest fairy is.)")
+        else:
+            name = fairies.catch(g)
+            g.say(f"  `2Your pocket's taken, so into the jar.  She says her name is `#{name}`2,")
+            g.say("  `2and that you'll be sorry.  (Fairies help at the places past town.)")
     else:
         g.say("  `2You untangle her and she zips off, kissing your nose on the way:")
         g.say("  `0+1 charm`2.")
@@ -281,16 +288,30 @@ def main():
             g.say()
             import fairies
 
+            if fairies.lord_fairy(g):
+                g.say("  `2A `#fairy`2 rides in your pocket.")
             if fairies.count(g):
                 g.say(f"  `2Fairies in your jar: `#{', '.join(fairies.jar(g))}`2.")
+            if fairies.lord_fairy(g) or fairies.count(g):
                 g.say()
+            # A jar fairy into an empty pocket, where LORD sees her.
+            can_pocket = fairies.count(g) and not fairies.lord_fairy(g)
             g.say(f"  `2(`0C`2)ast a line   `2({left} cast{'s' if left != 1 else ''} left today)")
             g.say("  `2(`0B`2)ook of records")
+            if can_pocket:
+                g.say("  `2(`0P`2)ocket a fairy from your jar")
             g.say("  `2(`0T`2)alk to Gert")
             g.say("  `2(`0R`2)eturn to town")
             g.say()
-            k = g.key("  `2Your choice? [`0R`2] : ", "CBTR", "R")
-            if k == "C":
+            k = g.key("  `2Your choice? [`0R`2] : ", "CBTR" + ("P" if can_pocket else ""), "R")
+            if k == "P":
+                name = fairies.to_pocket(g)
+                g.say()
+                g.say(f"  `2You tip `#{name}`2 out of the jar into your pocket.  She grumbles,")
+                g.say("  `2but settles.")
+                g.say()
+                g.more()
+            elif k == "C":
                 cast(g, s)
             elif k == "B":
                 records(g, s)
