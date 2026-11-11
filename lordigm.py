@@ -196,7 +196,8 @@ class Igm:
                 if n == "`":
                     out.append("`")
                 elif n == "c":
-                    out.append("\x1b[2J\x1b[H\r\n\r\n" if self.ansi else "\r\n\r\n")
+                    # (Colors reset first: LORD may leave a background set.)
+                    out.append("\x1b[0m\x1b[2J\x1b[H\r\n\r\n" if self.ansi else "\r\n\r\n")
                 elif n == "r" and i + 2 < len(text) and text[i + 2] in _BG:
                     if self.ansi:
                         out.append(f"\x1b[{_BG[text[i + 2]]}m")

@@ -9,6 +9,12 @@ timing, and be changed without a rebuild.
 
 They were written for [disflux](https://disfluxbbs.com) and play there.
 
+| | |
+|---|---|
+| ![LORD's Other Places](screenshots/places.png) | ![The Hermit's Terminal](screenshots/hermit.png) |
+| ![Willow Pond](screenshots/pond.png) | ![Brakka's Forge](screenshots/forge.png) |
+| ![The Velvet Lantern](screenshots/lantern.png) | |
+
 ## The places
 
 | Module | What it is |
