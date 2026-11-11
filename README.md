@@ -34,8 +34,10 @@ another weapon or armor, so selling and buying again can't farm them.
 
 ## Installing
 
-Needs flux/bbs with `[dos.native]` (LORD running in the board's DOS
-machine, docs/DOORS.md there) and Python 3.
+Needs [flux/bbs](https://github.com/phrac/fluxbbs) with LORD running in
+its DOS machine ([setting up LORD](https://github.com/phrac/fluxbbs/blob/master/docs/DOORS.md#legend-of-the-red-dragon-lord)),
+its `[dos.native]` hookup ([in-game modules](https://github.com/phrac/fluxbbs/blob/master/docs/DOORS.md#in-game-modules-igms)),
+and Python 3 (in the flux/bbs Docker image already).
 
 1. Put this repository where the board can read it, outside the DOS
    drive (so DOS programs can't write scripts the board would run):
@@ -96,5 +98,5 @@ black.
 
 ## License
 
-MIT, like flux/bbs. LORD is Seth Able Robinson's (and Metropolis'
-since 4.0): these only add to it.
+MIT, like [flux/bbs](https://github.com/phrac/fluxbbs). LORD is Seth
+Able Robinson's (and Metropolis' since 4.0): these only add to it.
